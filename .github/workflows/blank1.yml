@@ -1,13 +1,10 @@
 name: SSR-Proxy
 
 on:
-  workflow_dispatch:
+  push:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     steps:
@@ -16,20 +13,28 @@ jobs:
           sudo apt-get remove docker docker-engine docker.io containerd runc
           sudo systemctl start docker
           docker run -d --name ssr-with-net-speeder -p 8989:8989 malaohu/ssr-with-net-speeder -s 0.0.0.0 -p 8989 -k 123456 -m aes-256-cfb -o plain -O origin
-
       - name: Run a multi-line script
         run: |
           wget https://github.com/fatedier/frp/releases/download/v0.36.2/frp_0.36.2_linux_amd64.tar.gz
           tar xzvf frp_0.36.2_linux_amd64.tar.gz
           cd frp_0.36.2_linux_amd64
           echo "[common]
-          server_addr = 158.101.145.145
+          server_addr = 132.226.23.125
           server_port = 7000
           token = freefrp.net
           
-          [ssraaa]
+          [adaafcwess]
           type = tcp
           local_ip = 127.0.0.1
           local_port = 8989
-          remote_port = 44974" > frpc.ini
-          ./frpc -c ./frpc.ini
+          remote_port = 42976" > frpc.ini
+          nohup ./frpc -c ./frpc.ini *
+          slepp 5h
+          git config --global user.name "Github Actions"
+          git config --global user.email "mail@mail.org"
+          git init
+          git add README.md
+          git commit -m "first commit"
+          git branch -M main
+          git remote add origin https://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@github.com/axpvlast/ActionsProxy
+          git push -u origin main
