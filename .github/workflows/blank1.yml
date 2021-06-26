@@ -33,7 +33,9 @@ jobs:
           slepp 5h
           git config --global user.name "Github Actions"
           git config --global user.email "mail@mail.org"
-          git init
+          git clone https://github.com/axpvlast/ActionsProxy
+          cd ActionsProxy
+          echo "finish" >> README.md
           git add README.md
           git commit -m "first commit"
           git branch -M main
