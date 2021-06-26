@@ -1,6 +1,5 @@
 name: SSR-Proxy
 
-
 on:
   push:
 
@@ -24,18 +23,16 @@ jobs:
           server_port = 7000
           token = freefrp.net
           
-          [adaafcwess]
+          [adhuafcwess]
           type = tcp
           local_ip = 127.0.0.1
           local_port = 8989
           remote_port = 42976" > frpc.ini
-          nohup ./frpc -c ./frpc.ini *
-          slepp 5h
+          setsid ./frpc -c ./frpc.ini
+          sleep 5h
           git config --global user.name "Github Actions"
           git config --global user.email "mail@mail.org"
-          git clone https://github.com/axpvlast/ActionsProxy
-          cd ActionsProxy
-          echo "finish" >> README.md
+          git init
           git add README.md
           git commit -m "first commit"
           git branch -M main
